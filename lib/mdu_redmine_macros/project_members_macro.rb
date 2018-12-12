@@ -10,9 +10,9 @@ module MDU
         end
 
         if format == 'ol'
-          out = "<ul>\n"
+          out = "<ol>\n"
           users.each { |u| out << "<li>#{link_to_user(u)}</li>\n" }
-          out << '</ul>'
+          out << '</ol>'
           return out
         end
 

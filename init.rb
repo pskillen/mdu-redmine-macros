@@ -10,6 +10,6 @@ Redmine::Plugin.register plugin_name do
   author 'Patrick Skillen'
   description 'Wiki macros to support MDU QMS via Redmine.'
   version '0.0.1'
-  url 'https://gitlab.com/mdu_software/mdu-redmine-macros'
-  author_url 'https://gitlab.com/mdu_software/mdu-redmine-macros'
+  url 'https://github.com/pskillen/mdu-redmine-macros'
+  author_url 'https://github.com/pskillen/mdu-redmine-macros'
 end

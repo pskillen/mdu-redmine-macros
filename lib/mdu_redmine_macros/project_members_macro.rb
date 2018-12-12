@@ -5,14 +5,14 @@ module MDU
         if format == 'ul'
           out = "<ul>\n"
           users.each { |u| out << "<li>#{link_to_user(u)}</li>\n" }
-          out << "</ul>\n"
+          out << '</ul>'
           return out
         end
 
         if format == 'ol'
           out = "<ul>\n"
           users.each { |u| out << "<li>#{link_to_user(u)}</li>\n" }
-          out << "</ul>\n"
+          out << '</ul>'
           return out
         end
 

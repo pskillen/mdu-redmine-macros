@@ -2,9 +2,9 @@ module MDU
   module RedmineMacros
     Redmine::WikiFormatting::Macros.register do
       desc 'Include a project custom field. Example:
-  !{{project_field(Status)}}
+  {{project_field(Status)}}
 or to include a field of a specific project:
-  !{{project_field(projectname:Status)}}'
+  {{project_field(projectname:Status)}}'
       macro :project_field do |obj, args|
         out = ''
 

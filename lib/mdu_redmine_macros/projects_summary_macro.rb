@@ -87,7 +87,7 @@ module MDU
 
         # Med Dev / MDR Class
         out << "<td><strong>Med device:</strong> #{med_dev}<br>\n"
-        out << "<strong>Class (MDR):</strong> #{mdr_class}</td>\n"
+        out << "<strong>Class (MDR):</strong> #{mdr_class}<br>\n"
         out << "<strong>Class (MDD):</strong> #{mdd_class}</td>\n"
 
         out << '</tr>'

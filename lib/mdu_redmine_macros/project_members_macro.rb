@@ -1,7 +1,12 @@
 module MDU
   module RedmineMacros
     module ProjectMembersMacro
-      def do_format(users, format)
+      def format_users(users, format)
+        if format == 'br'
+          users.each { |u| out << "#{link_to_user(u)}</br>\n" }
+          return out
+        end
+
         if format == 'ul'
           out = "<ul>\n"
           users.each { |u| out << "<li>#{link_to_user(u)}</li>\n" }
@@ -31,7 +36,7 @@ or for a specific project:
 
 To specify formatting:
   {{project_members(projectname:Tech lead|format)}}
-Format may be one of: csv, ssv, ol, ul'
+Format may be one of: csv, ssv, ol, ul, br'
       macro :project_members do |obj, args|
         out = ''
 
@@ -63,7 +68,7 @@ Format may be one of: csv, ssv, ol, ul'
           user_roles.each do |key, users|
             next unless key.name == role_name
 
-            out << do_format(users, format)
+            out << format_users(users, format)
           end
         rescue => err_msg
           raise <<-TEXT.html_safe

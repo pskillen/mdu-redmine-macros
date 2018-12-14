@@ -2,7 +2,7 @@ module MDU
   module RedmineMacros
     module ProjectSummaryMacro
 
-      def table_header_row
+      def summary_table_header_row
         out = ''
         # Code, Name, Tech lead/PM, Project Team, Status Wiki, Charter/PAR, Med Dev/Class
         out << "<tr>\n"
@@ -10,6 +10,7 @@ module MDU
         out << "<th>Name</th>\n"
         out << "<th>Tech Lead / PM</th>\n"
         out << "<th>Team</th>\n"
+        out << "<th>Resource Priority</th>\n"
         out << "<th>Status Wiki</th>\n"
         out << "<th>Charter/PAR</th>\n"
         out << "<th>Med Dev/Class</th>\n"
@@ -17,7 +18,7 @@ module MDU
         out
       end
 
-      def do_format(project, custom_fields, _fmt = 'tr')
+      def format_project_summary(project, custom_fields, _fmt = 'tr')
         roles = project.users_by_role
 
         _pm_role, pm_users = roles.select { |r| r.name == 'Project Lead' }.first
@@ -26,6 +27,7 @@ module MDU
         status_wiki = Wiki.find_page('Project Status', project => project)
 
         code = custom_fields[:code] ? project.custom_field_value(custom_fields[:code].id) : nil
+        resource_priority = custom_fields[:resource_priority] ? project.custom_field_value(custom_fields[:resource_priority].id) : nil
 
         med_dev = custom_fields[:med_dev] ? project.custom_field_value(custom_fields[:med_dev].id) : nil
         med_dev = 'No' if med_dev == '0'
@@ -61,8 +63,14 @@ module MDU
 
         # Team
         out << '<td>'
-        out << team_users.map { |u| link_to_user(u) }.join(', ') if team_users
+        if team_users
+          extend ProjectMembersMacro
+          out << format_users(team_users, 'br')
+        end
         out << "</td>\n"
+
+        # Resource priority
+        out << "<td>#{resource_priority}</td>\n"
 
         # Status Wiki
         #
@@ -106,7 +114,8 @@ module MDU
               charter_ticket: CustomField.where(type: 'ProjectCustomField', name: 'Charter').first,
               par_ticket: CustomField.where(type: 'ProjectCustomField', name: 'PAR').first,
               med_dev: CustomField.where(type: 'ProjectCustomField', name: 'Medical device').first,
-              mdr_class: CustomField.where(type: 'ProjectCustomField', name: 'MDR Class').first
+              mdr_class: CustomField.where(type: 'ProjectCustomField', name: 'MDR Class').first,
+              resource_priority: CustomField.where(type: 'ProjectCustomField', name: 'Resource priority').first
           }
           raise '- custom field \'Status\' not found' unless fields[:status]
 
@@ -118,7 +127,7 @@ module MDU
           if fmt == 'table'
             out << "<table>\n"
             out << "<thead>\n"
-            out << table_header_row
+            out << summary_table_header_row
             out << "</thead>\n"
             out << "</tbody>\n"
           end
@@ -129,7 +138,7 @@ module MDU
               next unless status == filter_status_name
             end
 
-            out << do_format(prj, fields, 'tr')
+            out << format_project_summary(prj, fields, 'tr')
           end
 
           if fmt == 'table'

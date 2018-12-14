@@ -3,6 +3,7 @@ module MDU
     module ProjectMembersMacro
       def format_users(users, format)
         if format == 'br'
+          out = ''
           users.each { |u| out << "#{link_to_user(u)}</br>\n" }
           return out
         end

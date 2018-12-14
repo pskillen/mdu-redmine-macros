@@ -24,7 +24,8 @@ module MDU
         _pm_role, pm_users = roles.select { |r| r.name == 'Project Lead' }.first
         _tl_role, tl_users = roles.select { |r| r.name == 'Tech Lead' }.first
         _team_role, team_users = roles.select { |r| r.name == 'Project Team' }.first
-        status_wiki = Wiki.find_page('Project Status', project => project)
+        status_wiki = Wiki.find_page('Project_status', project: project)
+        status_wiki ||= Wiki.find_page('Project_Status', project: project)
 
         code = custom_fields[:code] ? project.custom_field_value(custom_fields[:code].id) : nil
         resource_priority = custom_fields[:resource_priority] ? project.custom_field_value(custom_fields[:resource_priority].id) : nil
@@ -75,7 +76,7 @@ module MDU
         # Status Wiki
         #
         out << '<td>'
-        out << "<a href=\"/projects/#{project.identifier}/wiki/Project_Status\">Status</a>" if status_wiki
+        out << "<a href=\"/projects/#{project.identifier}/wiki/#{status_wiki.title}\">Status</a>" if status_wiki
         out << '(not found)' unless status_wiki
         out << "</td>\n"
 

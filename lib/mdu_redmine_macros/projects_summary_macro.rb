@@ -35,6 +35,7 @@ module MDU
         med_dev = 'Yes' if med_dev == '1'
 
         mdr_class = custom_fields[:mdr_class] ? project.custom_field_value(custom_fields[:mdr_class].id) : nil
+        mdd_class = custom_fields[:mdd_class] ? project.custom_field_value(custom_fields[:mdd_class].id) : nil
 
         charter_ticket = custom_fields[:charter_ticket] ? project.custom_field_value(custom_fields[:charter_ticket].id) : nil
         charter_ticket = Issue.find_by_id(charter_ticket) if charter_ticket
@@ -86,7 +87,8 @@ module MDU
 
         # Med Dev / MDR Class
         out << "<td><strong>Med device:</strong> #{med_dev}<br>\n"
-        out << "<strong>Class:</strong> #{mdr_class}</td>\n"
+        out << "<strong>Class (MDR):</strong> #{mdr_class}</td>\n"
+        out << "<strong>Class (MDD):</strong> #{mdd_class}</td>\n"
 
         out << '</tr>'
 
@@ -116,6 +118,7 @@ module MDU
               par_ticket: CustomField.where(type: 'ProjectCustomField', name: 'PAR').first,
               med_dev: CustomField.where(type: 'ProjectCustomField', name: 'Medical device').first,
               mdr_class: CustomField.where(type: 'ProjectCustomField', name: 'MDR Class').first,
+              mdd_class: CustomField.where(type: 'ProjectCustomField', name: 'MDD Class').first,
               resource_priority: CustomField.where(type: 'ProjectCustomField', name: 'Resource priority').first
           }
           raise '- custom field \'Status\' not found' unless fields[:status]

@@ -86,9 +86,12 @@ module MDU
         out << "<strong>PAR:</strong> #{par_ticket}</td>\n"
 
         # Med Dev / MDR Class
-        out << "<td><strong>Med device:</strong> #{med_dev}<br>\n"
-        out << "<strong>Class (MDR):</strong> #{mdr_class}<br>\n"
-        out << "<strong>Class (MDD):</strong> #{mdd_class}</td>\n"
+        out << "<td><strong>Med device:</strong> #{med_dev}\n"
+        if med_dev == 'Yes'
+          out << "<br><strong>Class (MDR):</strong> #{mdr_class}\n"
+          out << "<br><strong>Class (MDD):</strong> #{mdd_class}\n"
+        end
+        out << "</td>\n"
 
         out << '</tr>'
 

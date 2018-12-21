@@ -45,7 +45,7 @@ module MDU
           status_wiki ||= Wiki.find_page('Project_Status', project: project)
 
           med_dev = custom_fields[:med_dev] ? project.custom_field_value(custom_fields[:med_dev].id) : '(not found)'
-          med_dev = (med_dev == '1')
+          med_dev = (med_dev == 1)
 
           mdr_class = custom_fields[:mdr_class] ? project.custom_field_value(custom_fields[:mdr_class].id) : '(not found)'
           mdd_class = custom_fields[:mdd_class] ? project.custom_field_value(custom_fields[:mdd_class].id) : '(not found)'
@@ -77,7 +77,7 @@ module MDU
 
           out << "<tr>\n"
           out << "  <th>Members</th>\n"
-          out << '  <td colspan="3">'
+          out << '  <td colspan="5">'
           out << '    TL: ' << format_users(tl_users, 'csv') if tl_users
           out << '    PM: ' << format_users(pm_users, 'csv') if pm_users
           out << '    Team: ' << format_users(team_users, 'csv') if team_users
@@ -87,14 +87,14 @@ module MDU
           if clinical_sponsor
             out << "<tr>\n"
             out << "  <th>Clinical sponsor</th>\n"
-            out << '  <td colspan="3">' << clinical_sponsor << '</td>'
+            out << '  <td colspan="5">' << clinical_sponsor << '</td>'
             out << '</tr>'
           end
 
           if external_partners
             out << "<tr>\n"
             out << "  <th>External partners</th>\n"
-            out << '  <td colspan="3">' << external_partners << '</td>'
+            out << '  <td colspan="5">' << external_partners << '</td>'
             out << '</tr>'
           end
 

@@ -63,48 +63,51 @@ module MDU
           out << "<table>\n"
 
           out << "<tr>\n"
-          out << "<th>Status</th>\n"
-          out << "<td>#{status}</td>\n"
-          out << "<th>Resource Priority</th>\n"
-          out << "<td>#{resource_priority}</td>\n"
-          out << "<th>Updates</th>\n"
-          out << "<a href=\"/projects/#{project.identifier}/wiki/#{status_wiki.title}\">Status</a>" if status_wiki
-          out << '(not found)' unless status_wiki
+          out << "  <th>Status</th>\n"
+          out << "  <td>#{status}</td>\n"
+          out << "  <th>Resource Priority</th>\n"
+          out << "  <td>#{resource_priority}</td>\n"
+          out << "  <th>Updates</th>\n"
+          out << if status_wiki
+                   "  <td><a href=\"/projects/#{project.identifier}/wiki/#{status_wiki.title}\">Status</a></td>"
+                 else
+                   '  <td>(not found)</td>'
+                 end
           out << '</tr>'
 
           out << "<tr>\n"
-          out << "<th>Members</th>\n"
-          out << '<td colspan="3">'
-          out << 'TL: ' << format_users(tl_users, 'csv') if tl_users
-          out << 'PM: ' << format_users(pm_users, 'csv') if pm_users
-          out << 'Team: ' << format_users(team_users, 'csv') if team_users
+          out << "  <th>Members</th>\n"
+          out << '  <td colspan="3">'
+          out << '    TL: ' << format_users(tl_users, 'csv') if tl_users
+          out << '    PM: ' << format_users(pm_users, 'csv') if pm_users
+          out << '    Team: ' << format_users(team_users, 'csv') if team_users
           out << '</td>'
           out << '</tr>'
 
           if clinical_sponsor
             out << "<tr>\n"
-            out << "<th>Clinical sponsor</th>\n"
-            out << '<td colspan="3">' << clinical_sponsor << '</td>'
+            out << "  <th>Clinical sponsor</th>\n"
+            out << '  <td colspan="3">' << clinical_sponsor << '</td>'
             out << '</tr>'
           end
 
           if external_partners
             out << "<tr>\n"
-            out << "<th>External partners</th>\n"
-            out << '<td colspan="3">' << external_partners << '</td>'
+            out << "  <th>External partners</th>\n"
+            out << '  <td colspan="3">' << external_partners << '</td>'
             out << '</tr>'
           end
 
           out << "<tr>\n"
-          out << "<th>PAR</th>\n"
-          out << "<td>#{par_ticket}</td>\n"
-          out << "<th>Charter</th>\n"
-          out << "<td>#{charter_ticket}</td>\n"
-          out << "<th>Medical Device</th>\n"
+          out << "  <th>PAR</th>\n"
+          out << "  <td>#{par_ticket}</td>\n"
+          out << "  <th>Charter</th>\n"
+          out << "  <td>#{charter_ticket}</td>\n"
+          out << "  <th>Medical Device</th>\n"
           out << if med_dev
-                   "<td>MDD #{mdd_class} / MDR #{mdr_class}</td>\n"
+                   "  <td>MDD #{mdd_class} / MDR #{mdr_class}</td>\n"
                  else
-                   "<td>No</td>\n"
+                   "  <td>No</td>\n"
                  end
           out << '</tr>'
 

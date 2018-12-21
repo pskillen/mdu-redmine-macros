@@ -12,7 +12,7 @@ module MDU
 
           arg = args.shift
           arg.strip!
-          prj_name = arg
+          project_name = arg
 
           custom_fields = {
               status: CustomField.where(type: 'ProjectCustomField', name: 'Status').first,
@@ -26,9 +26,9 @@ module MDU
               external_partners: CustomField.where(type: 'ProjectCustomField', name: 'External partners').first,
           }
 
-          prj = Project.find_by_identifier(prj_name)
-          prj ||= Project.find_by_name(prj_name)
-          raise "- Project '#{prj_name}' not found" unless prj
+          project = Project.find_by_identifier(project_name)
+          project ||= Project.find_by_name(project_name)
+          raise "- Project '#{project_name}' not found" unless project
 
           roles = project.users_by_role
 
@@ -68,7 +68,7 @@ module MDU
           out << "<th>Resource Priority</th>\n"
           out << "<td>#{resource_priority}</td>\n"
           out << "<th>Updates</th>\n"
-          out << "<a href=\"/projects/#{prj.identifier}/wiki/#{status_wiki.title}\">Status</a>" if status_wiki
+          out << "<a href=\"/projects/#{project.identifier}/wiki/#{status_wiki.title}\">Status</a>" if status_wiki
           out << '(not found)' unless status_wiki
           out << '</tr>'
 

@@ -52,18 +52,18 @@ Format may be one of: csv, ssv, ol, ul, br'
           match = arg.match(regex)
 
           if match[:project]
-            prj = Project.find_by_identifier(match[:project])
-            prj ||= Project.find_by_name(match[:project])
-            raise "- project:#{match[:project]} is not found." unless prj
+            project = Project.find_by_identifier(match[:project])
+            project ||= Project.find_by_name(match[:project])
+            raise "- project:#{match[:project]} is not found." unless project
           else
-            prj = obj.project
+            project = obj.project
           end
 
           role_name = match[:role]
           format = match[:format] || 'csv'
 
-          user_roles = prj.users_by_role
-          raise "- role: #{role_name} is not found in project #{prj.name}" unless user_roles.keys.any? { |r| r.name == role_name }
+          user_roles = project.users_by_role
+          raise "- role: #{role_name} is not found in project #{project.name}" unless user_roles.keys.any? { |r| r.name == role_name }
 
           extend ProjectMembersMacro
           user_roles.each do |key, users|

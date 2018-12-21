@@ -16,21 +16,21 @@ or to include a field of a specific project:
           arg.strip!
 
           if arg =~ /^([A-Za-z][A-Za-z0-9]+)(:)([A-Za-z][A-Za-z0-9 ]+)$/
-            prj = Project.find_by_identifier($1)
-            prj ||= Project.find_by_name($1)
-            raise "- project:#{$1} is not found." unless prj
+            project = Project.find_by_identifier($1)
+            project ||= Project.find_by_name($1)
+            raise "- project:#{$1} is not found." unless project
 
             name = $3
           else
-            prj = obj.project
+            project = obj.project
             name = arg
           end
 
           field = CustomField.where(type: 'ProjectCustomField', name: name).first
           raise "- custom field: #{name} is not found" unless field
 
-          value = prj.custom_field_value(field.id)
-          raise "- custom field:#{name} is not found in prj:#{prj.to_s}" unless value
+          value = project.custom_field_value(field.id)
+          raise "- custom field:#{name} is not found in project:#{project.to_s}" unless value
 
           out << value
         rescue => err_msg

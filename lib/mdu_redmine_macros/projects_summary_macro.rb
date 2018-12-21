@@ -126,8 +126,8 @@ module MDU
           }
           raise '- custom field \'Status\' not found' unless fields[:status]
 
-          mdu_prj = Project.find_by_identifier('projects')
-          raise '- Project identifier \'projects\' not found' unless mdu_prj
+          mdu_project = Project.find_by_identifier('projects')
+          raise '- Project identifier \'projects\' not found' unless mdu_project
 
           extend ProjectsSummaryMacro
 
@@ -139,13 +139,13 @@ module MDU
             out << "<tbody>\n"
           end
 
-          mdu_prj.descendants.each do |prj|
+          mdu_project.descendants.each do |project|
             if filter_status_name
-              status = prj.custom_field_value(fields[:status].id)
+              status = project.custom_field_value(fields[:status].id)
               next unless status == filter_status_name
             end
 
-            out << format_project_summary(prj, fields, 'tr')
+            out << format_project_summary(project, fields, 'tr')
           end
 
           if fmt == 'table'

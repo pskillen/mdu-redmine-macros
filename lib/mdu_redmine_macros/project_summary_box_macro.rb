@@ -44,7 +44,7 @@ module MDU
           status_wiki = Wiki.find_page('Project_status', project: project)
           status_wiki ||= Wiki.find_page('Project_Status', project: project)
 
-          med_dev = custom_fields[:med_dev] ? project.custom_field_value(custom_fields[:med_dev].id) : '(not found)'
+          med_dev = custom_fields[:med_dev] ? project.custom_field_value(custom_fields[:med_dev].id) : nil
           med_dev = (med_dev == 1 || med_dev == '1' || med_dev == true)
 
           mdr_class = custom_fields[:mdr_class] ? project.custom_field_value(custom_fields[:mdr_class].id) : '(not found)'

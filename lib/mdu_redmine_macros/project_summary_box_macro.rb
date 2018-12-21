@@ -13,9 +13,8 @@ module MDU
           arg = args.shift
           arg.strip!
           prj_name = arg
-          fmt = 'table'
 
-          fields = {
+          custom_fields = {
               status: CustomField.where(type: 'ProjectCustomField', name: 'Status').first,
               charter_ticket: CustomField.where(type: 'ProjectCustomField', name: 'Charter').first,
               par_ticket: CustomField.where(type: 'ProjectCustomField', name: 'PAR').first,

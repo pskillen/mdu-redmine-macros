@@ -3,6 +3,7 @@ plugin_name = :mdu_redmine_macros
 Rails.configuration.to_prepare do
   require_dependency "mdu_redmine_macros/project_field_macro"
   require_dependency "mdu_redmine_macros/project_members_macro"
+  require_dependency "mdu_redmine_macros/project_summary_box_macro"
   require_dependency "mdu_redmine_macros/projects_summary_macro"
 end
 

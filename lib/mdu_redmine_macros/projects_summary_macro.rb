@@ -1,6 +1,6 @@
 module MDU
   module RedmineMacros
-    module ProjectSummaryMacro
+    module ProjectsSummaryMacro
 
       def summary_table_header_row
         out = ''
@@ -129,14 +129,14 @@ module MDU
           mdu_prj = Project.find_by_identifier('projects')
           raise '- Project identifier \'projects\' not found' unless mdu_prj
 
-          extend ProjectSummaryMacro
+          extend ProjectsSummaryMacro
 
           if fmt == 'table'
             out << "<table>\n"
             out << "<thead>\n"
             out << summary_table_header_row
             out << "</thead>\n"
-            out << "</tbody>\n"
+            out << "<tbody>\n"
           end
 
           mdu_prj.descendants.each do |prj|
